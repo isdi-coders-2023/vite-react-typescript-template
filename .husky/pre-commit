@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+branch="$(git symbolic-ref --short -q HEAD)"
+
+if [ "$branch" = "master" ]; then
+  echo "You can't commit directly to master branch"
+  exit 1
+fi
+
+exec >/dev/tty 2>&1
+
+npx lint-staged
